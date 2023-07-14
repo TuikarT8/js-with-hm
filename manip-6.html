@@ -1,30 +1,39 @@
 <html>
     <head>
-        <title>manip-6</title>
+        <title>Manip - 6</title>
         <style>
             input.error{
-                border: red;
+                border: solid 1px red;
             }
         </style>
         <script>
             var color = 'black'
-            function confirmerEnvoi(){
+            function verifierLesOptionsRadio(event){
                 //si l'utilisateur clique sur daccord on change
                 //la couleur du bouton envoyer sinon on remet la
                 // couleur d'avant
-
-
+                const button = document.getElementById("ok-button");
+                if (event.target.value === "ok") {
+                    button.disabled = false;
+                } else {
+                    button.disabled = true;
+                }
             }
+
             function verifierInput(){
                 //verifier si la taille est >=6
-                const inputs = document.getElementsByClassName("input");
-                if input.length >= 6 {
-                    const paragraphes = document.getElementsByTagName("p");
-
-
+                const inputs = document.getElementsByTagName("input");
+                for(const input of inputs) {
+                    if (input.value.length >= 6) {
+                        input.classList.remove("error");
+                    } else {
+                        if (!input.classList.contains("error")) {
+                            input.classList.add("error");
+                        }
+                    }
                 }
-
             }
+
             function changeColorError(){
                 //En cas d'erreurs si l'entree dans les input sont < 6
                 //nous changons la couleur de bordure
@@ -32,20 +41,26 @@
 
         </script>
         <body>
+            <h1>Manip - 6</h1>
             <p> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Neque, ipsa! Vel nam similique iusto. Fuga repellendus cumque libero molestias provident, necessitatibus dolorem odit nesciunt. Minus, voluptatem? Labore itaque rerum ipsa.</p>
             <form action="">
                 <label for="nom">Nom</label><br>
-                <input type="text" id="nom" name="nom"><br>
+                <input type="text"  id="nom" name="nom"><br>
                 <label for="postnom">Post Nom</label><br>
-                <input type="text" id="postnom" name="postnom"><br>
+                <input type="text"  id="postnom" name="postnom"><br>
                 <label for="prenom">Pre-Nom</label><br>
-                <input type="text" id="prenom" name="prenom"><br><br>
+                <input type="text"  id="prenom" name="prenom"><br><br>
 
-                <input type="radio" id="daccord" onclick="" value="D'accord">
-                <label for="daccord">D'accord</label> <br>
-                <input type="radio" id="pasdaccord" onclick="" value="Pas D'accord">
-                <label for="pasdaccord">Pas d'accord</label><br><br>
-                <button class="button" onclick="">Envoyer</button>
+                <fieldset>
+                    <legend>Accord d'utilisation</legend>
+                    <input type="radio" id="daccord" onclick="verifierLesOptionsRadio(event)" name="conscent" value="ok">
+                    <label for="daccord">D'accord</label><br>
+                    <input type="radio" id="pasdaccord" onclick="verifierLesOptionsRadio(event)" name="conscent" value="ko">
+                    <label for="pasdaccord">Pas d'accord</label>
+                </fieldset>
+                <br><br>
+
+                <button type="button" id="ok-button" onclick="verifierInput(); return false;" disabled>Envoyer</button>
             </form>
         </body>
     </head>
