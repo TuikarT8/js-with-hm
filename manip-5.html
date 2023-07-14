@@ -1,0 +1,57 @@
+<html>
+    <head>
+        <title>manip-5</title>
+        <style>
+            .button.error {
+                background-color: #BF360C;
+                color: #fff;
+            }
+        </style>
+        <script>
+            var compte = 0;
+            var colors = [
+                '#B71C1C',
+                '#512DA8',
+                '#039BE5',
+                '#AFB42B',
+                '#F9A825',
+            ];
+
+            function changeColor() {
+                // Récuperation par Id
+                const titre = document.getElementById("titre");
+                titre.innerText = "Manip-5 (Cliqué) " + ++compte + " fois";
+
+                // J'ai fais exprès de recuperer un noeud qui n'existe pas juste pour voir ce que ça fait!
+                const text = document.getElementById("texte");
+                if (text !== null) {
+                    text.innerHTML = "Totaux";
+                }
+
+                // Récuperation par balise
+                const paragraphes = document.getElementsByTagName("p");
+                if (paragraphes.length > 0) {
+                    for(const paragraphe of paragraphes) {
+                        paragraphe.style = "color: " + colors[compte%5];
+                        paragraphe.setAttribute('english', 'Totals');
+                        paragraphe.setAttribute('french', 'Totaux');
+                    }
+                }
+
+                // Récupération par classe
+                const elements = document.getElementsByClassName("button");
+                if (elements.length > 0) {
+                    for(const element of elements) {
+                        if (compte > 5 && !element.classList.contains("error")) {
+                            element.classList.add("error");
+                        }
+                    }
+                }
+            }
+        </script>
+    </head>
+
+    <h1 id="titre"> <span>Manip-5</span></h1>
+    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Numquam ea facere porro reiciendis magni possimus recusandae at iste neque, vitae tempore unde nihil, ut sequi, nemo eos. Voluptatem, possimus voluptatum.</p>
+    <button class="button" onclick="changeColor()">J'ai compris</button>
+</html>
