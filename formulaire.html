@@ -1,0 +1,79 @@
+<html>
+    <head>
+        <title>Formulaire</title>
+        <style>
+              input.error{
+                border: solid 1px red;
+            }
+        </style>
+
+        <script>
+             function verifierInput(event){
+                event.preventDefault();
+
+                const inputs = document.querySelectorAll('input[type="text"]');
+                for(const input of inputs) {
+                    if (input.value.length >= 6) {
+                        input.classList.remove("error");
+                    } else {
+                        if (!input.classList.contains("error")) {
+                            input.classList.add("error");
+                        }
+                    }
+                }
+            }
+        </script>
+    </head>
+
+    <body>
+        <form>
+            <h1>Signin</h1>
+
+            <div class="form-group">
+                <h4>Identité</h4>
+                <div class="input-group">
+                    <label for="first-name">Prenom</label>
+                    <input type="text" autofocus name="first-name" id="first-name">
+                </div><br>
+                <div class="input-group">
+                    <label for="middle-name">Nom</label>
+                    <input type="text" name="middle-name" id="middle-name">
+                </div><br>
+                <div class="input-group">
+                    <label for="last-name">Postnom</label>
+                    <input type="text" id="last-name"  value="">
+                </div><br>
+            </div>
+
+            <div class="form-group">
+                <h4>Sécurité</h4>
+                <div class="input-group">
+                    <label for="email">Addresse email</label>
+                    <input type="text"  id="email"   value="">
+                </div><br>
+                <div class="input-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="text"  id="password"  value="">
+                </div><br>
+                <div class="input-group">
+                    <label for="confirmation-password">Confirmation du mot de passe</label>
+                    <input type="text"  name="password" id="confirmation-password">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <h4>Données additionnelles</h4>
+                <div class="input-group">
+                    <label for="address">Addresse</label>
+                    <input type="text" name="address" id="address">
+                </div>
+            </div><br>
+
+            <input type="hidden" name="submitted" value="true">
+
+            <div>
+                <button type="submit" onclick="verifierInput(event)">Ok</button>
+            </div>
+        </form>
+    </body>
+</html>

@@ -1,0 +1,129 @@
+<html>
+    <head>
+        <title>Manip - 11</title>
+        <script src="https://kit.fontawesome.com/8878e5c56f.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="/assets/font-awesome.min.css">
+        <style>
+            input.error {
+                border: 1px solid red;
+            }
+            html {
+                font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            }
+        </style>
+        <script>
+            function enregistrerFormulaire() {
+                const inputs = document.querySelectorAll('form > input');
+                for (const input of inputs) {
+                    localStorage.setItem(input.id, input.value);
+                }
+            }
+
+            function restituerFormulaire() {
+                const inputs = document.querySelectorAll('form > input');
+                for (const input of inputs) {
+                    input.value = localStorage.getItem(input.id);
+                }
+            }
+
+            function effacerFormulaire() {
+                const inputs = document.querySelectorAll('form > input');
+                for (const input of inputs) {
+                    localStorage.removeItem(input.id)
+                    input.value = null;
+                }
+            }
+
+            function copierParagrapheDansPressePapier() {
+                const text = document.querySelector('p > span')
+                navigator.clipboard.writeText(text.innerText)
+                    .then(() => console.log('Successfully copied text to clipboard'))
+                    .catch(console.error);
+            }
+
+            function validerInput({ target }) {
+                if(target.value.length < 2) {
+                    target.classList.add("error");
+                }
+            }
+
+            function supprimerLaClasseErreur({target}){
+                target.classList.remove("error")
+            }
+
+        </script>
+    </head>
+    <body onload="restituerFormulaire()">
+        <h1>Manip - 11</h1>
+        <p style="position: relative; margin-left: 16px; margin-right: 16px;">
+            <i
+                class="fa-solid fa-copy"
+                style="background-color: #ffffff; position: absolute; top: -16px; left: -16px; padding: 4px; cursor: pointer; border-radius: 50%;"
+                onclick="copierParagrapheDansPressePapier()">
+            </i>
+            <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus perferendis quos pariatur, ab sequi amet numquam corporis minus ipsam dolore, similique modi? Consectetur, perferendis sint incidunt rerum beatae labore! Facere?</span>
+        </p>
+        <form style="display: flex; flex-direction: column; margin: 16px;">
+            <label for="nom" >Nom</label>
+            <input
+                type="text"
+                id="nom"
+                name="nom"
+                onfocus="supprimerLaClasseErreur(event)"
+                onblur="validerInput(event)"
+                >
+            <br>
+
+            <label for="postnom">Post-nom</label>
+            <input
+                type="text"
+                id="postnom"
+                name="postnom"
+                onfocus="supprimerLaClasseErreur(event)"
+                onblur="validerInput(event)"
+                >
+            <br>
+
+            <label for="prenom">Prenom</label>
+            <input
+                type="text"
+                id="prenom"
+                name="prenom"
+                onfocus="supprimerLaClasseErreur(event)"
+                onblur="validerInput(event)"
+                >
+            <br>
+
+            <label for="email-address">Address Email</label>
+            <input
+                type="email"
+                id="email-address"
+                value="onblur"
+                name="email-address"
+                onfocus="supprimerLaClasseErreur(event)"
+                onblur="validerInput(event)"
+                >
+            <br>
+
+            <div style="display: flex; flex-direction: row;">
+                <button
+                    onclick="enregistrerFormulaire()"
+                    type="button"
+                    style="cursor: pointer; color: #000000; background-color: #00B8D4; margin-right: 8px; border: none; padding: 4px;">
+                    Enregistrer
+                </button>
+                <button
+                    onclick="effacerFormulaire()"
+                    type="button"
+                    style="cursor: pointer; color: #ffffff; background-color: #D50000; margin-right: 16px; border: none; padding: 4px;">
+                    Effacer
+                </button>
+                <buton
+                    type="submit"
+                    style="cursor: pointer; color: #000000; background-color: #ffffff; padding: 4px;">
+                    Confirmer
+                </buton>
+            </div>
+        </form>
+    </body>
+</html>

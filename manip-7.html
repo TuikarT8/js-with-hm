@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Manip - 6</title>
+        <title>Manip - 7</title>
         <style>
             input.error{
                 border: solid 1px red;
@@ -11,7 +11,9 @@
                 //si l'utilisateur clique sur daccord on change
                 //la couleur du bouton envoyer sinon on remet la
                 // couleur d'avant
-                const button = document.getElementById("ok-button");
+                const button = document.querySelector("#ok-button");
+                if (!button) return;
+
                 if (event.target.value === "ok") {
                     button.disabled = false;
                 } else {
@@ -22,7 +24,7 @@
             function verifierInput(event){
                 event.preventDefault();
 
-                const inputs = document.getElementsByTagName("input");
+                const inputs = document.querySelectorAll('input[type="text"]');
                 for(const input of inputs) {
                     if (input.value.length >= 6) {
                         input.classList.remove("error");
@@ -35,7 +37,7 @@
             }
         </script>
         <body>
-            <h1>Manip - 6</h1>
+            <h1>Manip - 7</h1>
             <p> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Neque, ipsa! Vel nam similique iusto. Fuga repellendus cumque libero molestias provident, necessitatibus dolorem odit nesciunt. Minus, voluptatem? Labore itaque rerum ipsa.</p>
             <form action="">
                 <label for="nom">Nom</label><br>

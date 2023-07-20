@@ -1,0 +1,196 @@
+<html>
+    <head>
+        <title>Manip - 12</title>
+        <script src="https://kit.fontawesome.com/8878e5c56f.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="/assets/font-awesome.min.css">
+        <style>
+            .form-confirmation-dialog {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                margin: auto;
+                height: fit-content;
+                width: 300px;
+                padding: 16px;
+                border-radius: 5px;
+                box-shadow: 0px 0px 8px #90A4AE;
+                background-color: #ffffff;
+            }
+            .form-confirmation-dialog > .table {
+                background-color: #efefef;
+                margin-bottom: 8px;
+                width: 100%;
+            }
+            .form-confirmation-dialog > .table td {
+                padding: 8px 4px 8px 4px;
+            }
+            input.error {
+                border: 1px solid red;
+            }
+            html {
+                font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            }
+            .positive-button {
+                cursor: pointer; color: #000000; background-color: #00B8D4; margin-right: 8px; border: none; padding: 4px;
+            }
+            .subtle-button {
+                cursor: pointer; color: #000000; background-color: #ffffff; border: none; padding: 4px;
+            }
+        </style>
+        <script>
+            function enregistrerFormulaire() {
+                const inputs = document.querySelectorAll('form > input');
+                for (const input of inputs) {
+                    localStorage.setItem(input.id, input.value);
+                }
+            }
+
+            function restituerFormulaire() {
+                const inputs = document.querySelectorAll('form > input');
+                for (const input of inputs) {
+                    input.value = localStorage.getItem(input.id);
+                }
+            }
+
+            function effacerFormulaire() {
+                const inputs = document.querySelectorAll('form > input');
+                for (const input of inputs) {
+                    localStorage.removeItem(input.id)
+                    input.value = null;
+                }
+            }
+
+            function copierParagrapheDansPressePapier() {
+                const text = document.querySelector('p > span')
+                navigator.clipboard.writeText(text.innerText)
+                    .then(() => console.log('Successfully copied text to clipboard'))
+                    .catch(console.error);
+            }
+
+            function validerInput({ target }) {
+                if(target.value.length < 2) {
+                    target.classList.add("error");
+                }
+            }
+
+            function supprimerLaClasseErreur({target}) {
+                target.classList.remove("error")
+            }
+
+            function confirmerFormulaire() {
+                event.stopPropagation();
+                event.preventDefault();
+                const lines = []
+                const boiteDeDialogue = document.createElement('div');
+                const inputs = document.querySelectorAll('input[type="text"]')
+
+                for (const input of inputs) {
+                    let key = input.name;
+                    key = key.charAt().toUpperCase() + key.slice(1);
+                    lines.push(`<tr><td>${key}</td><td>${input.value}</td></tr>`);
+                }
+
+                boiteDeDialogue.innerHTML  = `
+                    <h3>Confirmation</h3>
+                    <p>Confirmez vous que les informations sont correctes ?</p>
+                    <table class="table">
+                        <thead><tr style="font-weight: 700;"><td>Champ</td><td>Valeur</td></tr></thead>
+                        <tbody>${lines.join('\n')}</tbody>
+                    </table>
+                    <button type="submit" class="subtle-button" onclick="fermerBoiteDeDialogue()">Annuler</button>
+                    <button type="submit" class="positive-button" onclick="confirmerLaBoiteDeDialogue()">Confirmer</button>
+                `;
+                boiteDeDialogue.id = "boite-de-dialogue"
+                boiteDeDialogue.classList.add("form-confirmation-dialog");
+                document.body.appendChild(boiteDeDialogue);
+            }
+
+            function fermerBoiteDeDialogue() {
+                const dialog = document.querySelector('div#boite-de-dialogue');
+                dialog.remove();
+            }
+
+            function confirmerLaBoiteDeDialogue() {
+                const form = document.querySelector('form');
+                form.submit();
+                fermerBoiteDeDialogue();
+            }
+        </script>
+    </head>
+    <body onload="restituerFormulaire()">
+        <h1>Manip - 12</h1>
+        <p style="position: relative; margin-left: 16px; margin-right: 16px;">
+            <i
+                class="fa-solid fa-copy"
+                style="background-color: #ffffff; position: absolute; top: -16px; left: -16px; padding: 4px; cursor: pointer; border-radius: 50%;"
+                onclick="copierParagrapheDansPressePapier()">
+            </i>
+            <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus perferendis quos pariatur, ab sequi amet numquam corporis minus ipsam dolore, similique modi? Consectetur, perferendis sint incidunt rerum beatae labore! Facere?</span>
+        </p>
+        <form style="display: flex; flex-direction: column; margin: 16px;" action="/manip-12.html">
+            <label for="nom" >Nom</label>
+            <input
+                type="text"
+                id="nom"
+                name="nom"
+                onfocus="supprimerLaClasseErreur(event)"
+                onblur="validerInput(event)"
+                >
+            <br>
+
+            <label for="postnom">Post-nom</label>
+            <input
+                type="text"
+                id="postnom"
+                name="postnom"
+                onfocus="supprimerLaClasseErreur(event)"
+                onblur="validerInput(event)"
+                >
+            <br>
+
+            <label for="prenom">Prenom</label>
+            <input
+                type="text"
+                id="prenom"
+                name="prenom"
+                onfocus="supprimerLaClasseErreur(event)"
+                onblur="validerInput(event)"
+                >
+            <br>
+
+            <label for="email-address">Address Email</label>
+            <input
+                type="email"
+                id="email-address"
+                value="onblur"
+                name="email-address"
+                onfocus="supprimerLaClasseErreur(event)"
+                onblur="validerInput(event)"
+                >
+            <br>
+
+            <div style="display: flex; flex-direction: row;">
+                <button
+                    onclick="enregistrerFormulaire()"
+                    type="button"
+                    class="positive-button">
+                    Enregistrer
+                </button>
+                <button
+                    onclick="effacerFormulaire()"
+                    type="button"
+                    style="cursor: pointer; color: #ffffff; background-color: #D50000; margin-right: 16px; border: none; padding: 4px;">
+                    Effacer
+                </button>
+                <button
+                    onclick= "confirmerFormulaire()"
+                    type="submit"
+                    class="subtle-button">
+                    Confirmer
+                </button>
+            </div>
+        </form>
+    </body>
+</html>

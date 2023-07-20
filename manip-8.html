@@ -1,0 +1,168 @@
+<html>
+    <head>
+        <style>
+            html {
+                font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            }
+            input.error {
+                border: solid 1px red;
+            }
+
+            .info-bulle {
+                position: absolute;
+                width: 200px;
+                text-align: center;
+                padding: 8px;
+                border-radius: 5px;
+                background-color: #37474F;
+                color: #ffffff;
+                box-shadow: 0px 0px 8px #90A4AE;
+            }
+            .notification{
+                position: fixed;
+                bottom: 16px;
+                left: 16px;
+                width: 300px;
+                background-color: #B2FF59;
+                padding: 8px;
+                border-radius: 5px;
+                box-shadow: 0px 0px 8px #90A4AE;
+            }
+            .infobox{
+                border: solid 1px #D50000;
+                border-radius: 5px;
+                color: #D50000;
+                background-color: #fff;
+                width: calc(100% - 16px);
+                text-align: center;
+            }
+            .infobox > a {
+                color: #D50000;
+                font-weight: 700;
+            }
+            .info-bulle > p {
+                width: calc(100% - 8px);
+            }
+        </style>
+        <script>
+            function verifierLesOptionsRadio(event){
+                const button = document.querySelector("#ok-button");
+                if (!button) return;
+
+                if (event.target.value === "ok") {
+                    button.disabled = false;
+                } else {
+                    button.disabled = true;
+                }
+            }
+
+            function verifierInput(event){
+                event.preventDefault();
+
+                const inputs = document.querySelectorAll('input[type="text"]');
+                for(const input of inputs) {
+                    if (input.value.length >= 6) {
+                        input.classList.remove("error");
+                    } else {
+                        if (!input.classList.contains("error")) {
+                            input.classList.add("error");
+                        }
+                    }
+                }
+            }
+
+            function afficherInfoBulle(event) {
+                event.stopPropagation();
+
+                if (event.target.getAttribute('info-bulle-deja-affichee') === 'true') {
+                    return;
+                }
+
+                if (!event.target.getAttribute('info')) {
+                    return;
+                }
+
+                /** @var {DOMRect} rect The rect of the event target */
+                const rect = event.target.getBoundingClientRect();
+                const top = rect.bottom + 8;
+                const left = rect.left;
+
+                const infoBulle = document.createElement('div');
+                infoBulle.innerHTML =  `
+                    <p>${event.target.getAttribute('info')}</p>
+                `;
+                infoBulle.classList.add("info-bulle");
+                infoBulle.style = `top: ${top}px; left: ${left}px;`
+
+                event.target.setAttribute('info-bulle-deja-affichee', true);
+                document.body.appendChild(infoBulle);
+
+                setTimeout(function(){
+                    event.target.setAttribute('info-bulle-deja-affichee', false);
+                    document.body.removeChild(infoBulle);
+                }, 5000);
+            }
+        </script>
+    </head>
+    <body>
+        <h1>Manip - 8</h1>
+            <p> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Neque, ipsa! Vel nam similique iusto. Fuga repellendus cumque libero molestias provident, necessitatibus dolorem odit nesciunt. Minus, voluptatem? Labore itaque rerum ipsa.</p>
+            <form action="">
+                <div
+                    info="Votre nom"
+                    onmouseover="afficherInfoBulle(event)">
+                    <label for="nom">Nom</label><br>
+                    <input type="text"  id="nom" name="nom"><br>
+                </div>
+                <label for="postnom">Post Nom</label><br>
+                <input type="text"  id="postnom" name="postnom"><br>
+                <label for="prenom">Pre-Nom</label><br>
+                <input type="text"  id="prenom" name="prenom"><br><br>
+
+                <fieldset>
+                    <legend>Accord d'utilisation</legend>
+                    <div
+                        info="En cliquant sur ce boutton vous indiquez que vous etez d'accord avec les conditions d'utilisation de notre site."
+                        onmouseover="afficherInfoBulle(event)">
+                        <input
+                            type="radio"
+                            id="daccord"
+                            onclick="verifierLesOptionsRadio(event)"
+                            name="conscent"
+                            value="ok">
+                        <label for="daccord">D'accord</label><br>
+                    </div>
+                    <input type="radio" id="pasdaccord" onclick="verifierLesOptionsRadio(event)" name="conscent" value="ko">
+                    <label for="pasdaccord">Pas d'accord</label>
+                </fieldset>
+                <br><br>
+
+                <button type="submit" id="ok-button" onclick="verifierInput(event)" disabled>Envoyer</button>
+            </form>
+    </body>
+    <script>
+        setTimeout(() => {
+            const notification = document.createElement('div');
+            notification.innerHTML =  `
+                    <h4>Vous avez 10 seconds pour remplir le formulaire</h4>
+                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Neque, ipsa! Vel nam similique iusto. Fuga repellendus cumque libero molestias provident, necessitatibus dolorem odit nesciunt. Minus, voluptatem? Labore itaque rerum ipsa</p>
+                `;
+            notification.classList.add("notification");
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                const formulaire = document.querySelector('form');
+                notification.remove();
+                formulaire.remove();
+
+                const infobox = document.createElement('div');
+                infobox.innerHTML = `
+                    <p>Vous avez dépassé le temps impartie pour remplir le formulaire</p>
+                    <a href="/manip-8.html">Réessayer</a>
+                `;
+                infobox.classList.add("infobox");
+                document.body.appendChild(infobox);
+            }, 10000);
+        }, 3000);
+    </script>
+</html>
