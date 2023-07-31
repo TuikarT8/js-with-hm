@@ -1,0 +1,17 @@
+{
+  "name": "manip-18",
+  "version": "1.0.0",
+  "description": "",
+  "main": "manip-18.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint .",
+    "start": "json-server --watch db.json"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.46.0",
+    "json-server": "^0.17.3"
+  }
+}

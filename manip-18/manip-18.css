@@ -1,0 +1,218 @@
+html {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: #212121;
+    color: #FAFAFA;
+    margin: 0;
+    padding: 0;
+}
+body {
+    margin: 0;
+    padding: 0;
+}
+main {
+    width: calc(100% - 32px);
+    margin-left: 16px;
+}
+table {
+    width: 100%;
+    background-color: #263238;
+    border-radius: 5px;
+    padding: 8px;
+    border: none;
+}
+
+tr {
+    height: 36px;
+    border: none;
+}
+thead > tr:hover {
+    background-color: #263238;
+}
+td {
+    border: none;
+}
+tr:hover, tr:nth-child(even):hover {
+    background-color: #004D40;
+}
+tr:nth-child(even) {
+    background-color: #37474F;
+}
+input {
+    height: 36px;
+    margin-bottom: 16px;
+    background-color: #263238;
+    border-radius: 5px;
+    outline: #00BFA5;
+    color: #fff;
+    font-size: 16px;
+    padding: 8px 4px 8px 4px;
+    font-weight: 500;
+    border: none;
+}
+input[name="filtre"]{
+    width: 200px;
+}
+input:focus, dialog > form > input {
+    border-bottom: solid 2px #00BFA5;
+    background-color: #37474F;
+}
+.icon-button {
+    height: 36px;
+    width: 36px;
+    padding: 8px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+}
+.icon-button.danger {
+    color: #fff;
+    background-color: #FF8A80;
+}
+.icon-button.danger:hover {
+    background-color: #FF8A80;
+}
+.flex-expand {
+    flex: 1 1;
+}
+.icon-button:hover {
+    background-color: #00BFA5;
+}
+.toolbar {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+dialog {
+    background-color: #263238;
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 0 50px #263238;
+    width: 400px;
+    height: 500px;
+    position: fixed;
+    margin: auto;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    right: 0;
+    color: #FAFAFA;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+dialog > form > div > button {
+    height: 32px;
+    font-weight: 500;
+    font-size: 14px;
+    border: none;
+}
+dialog > form > div > button:nth-child(odd) {
+    margin-left: 8px;
+}
+dialog > form > div > button.subtle {
+    background-color: #263238;
+    color: #fff;
+}
+dialog > form > div > button.primary {
+    background-color: #00BFA5;
+}
+.table-info {
+    margin-top: 4px;
+    font-size: 10px;
+}
+nav {
+    height: 72px;
+    width: calc(100% - 32px);
+    background-color: #263238;
+
+    display: flex;
+    flex-direction: row;
+    padding-left: 16px;
+    padding-right: 16px;
+
+    text-align: center;
+}
+
+.nav-link {
+    line-height: 72px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 20px;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.nav-link:hover {
+    background-color: #37474F;;
+}
+.nav-link.active {
+    background-color: #00BFA5;
+    color: #fff;
+}
+.events-panel {
+    position: fixed;
+    width: 0;
+    height: 100%;
+    right: 0;
+    top: 0;
+    left: auto;
+    background-color: #263238;
+    box-shadow: 0 0 50px #263238;
+}
+
+@keyframes right-to-left-opening-pane {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 600px;
+    }
+}
+
+.events-panel.open {
+    animation: 0.5s right-to-left-opening-pane;
+    width: 600px;
+    padding: 16px;
+}
+.window-button {
+    height: 32px;
+    width: 32px;
+    font-size: 24px;
+    text-align: center;
+    color: #fff;
+    background-color: transparent;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.event-line {
+    width: 100%;
+    background-color: #455A64;
+    height: 32px;
+    color: #fff;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 4px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    vertical-align: middle;
+    line-height: 32px;
+}
+.event-line> i {
+    margin-left: 8px;
+    line-height: 32px;
+    margin-right: 8px;
+}
+.event-line.suppression > i {
+    color: #EF9A9A;
+}
+.event-line.ajout > i {
+    color: #80CBC4;
+}
+.event-line:hover {
+    background-color: #B388FF;
+}

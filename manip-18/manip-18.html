@@ -1,0 +1,70 @@
+<html>
+    <head>
+        <title>Manip - 18</title>
+        <script src="https://kit.fontawesome.com/8878e5c56f.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="/assets/font-awesome.min.css">
+        <link rel="stylesheet" href="/manip-18/manip-18.css">
+        <script src="/manip-18/events.js" type="text/javascript"></script>
+        <script src="/manip-18/etudiants.js" type="text/javascript"></script>
+        <script src="/manip-18/nav.js" type="text/javascript"></script>
+    </head>
+    <body onload="chargerEtudiants();">
+        <nav>
+            <h2>Manip - 18</h2>
+            <span class="flex-expand"></span>
+            <a href="#historique" class="nav-link" onclick="onNavLinkClick(event); openEventsPane(); chargerEvenements();">Historique</a>
+        </nav>
+
+        <main>
+            <h2>Liste des étudiants</h2>
+            <div class="toolbar">
+                <input type="text" name="filtre" type="recherche" placeholder="Filtrer" oninput="filtrerEtudiants(event)">
+                <span class="flex-expand"></span>
+                <button class="icon-button" id="global-delete-button" disabled onclick="supprimerEtudiants()" style="margin-right: 8px"><i class="fa-solid fa-trash"></i></button>
+                <button class="icon-button" onclick="afficherDialogueAjouterEtudiant()" style="margin-right: 8px;"><i class="fa-solid fa-plus"></i></button>
+                <button class="icon-button" onclick="réinitialiserTableau()"><i class="fa-solid fa-arrows-rotate"></i></button>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <td><input type="checkbox" onclick="selectionnnerToutsLesEtudiant(event)"></td>
+                        <td onclick="trierParNom()">Nom&nbsp;<i class="fa-solid fa-sort"></i></i></i></td>
+                        <td onclick="trierParAge()">Age&nbsp;<i class="fa-solid fa-sort"></i></i></i></td>
+                        <td onclick="trierParPromotion()">Promotion&nbsp;<i class="fa-solid fa-sort"></i></i></i></td>
+                        <td>Actions</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Insérer les étudiants ici grâce à JavaScript :D -->
+                </tbody>
+            </table>
+            <div class="table-info" onload="afficherEtudiants()">0 sur 0 éléments</div>
+            <dialog>
+                <form onsubmit="return false;">
+                    <h2>Ajout d'étudiant</h2>
+                    <label for="nom">Nom</label>
+                    <input type="text" name="nom" id="nom">
+                    <label for="age">Age</label>
+                    <input type="number" name="age" id="age">
+                    <label for="promotion">Promotion</label>
+                    <input type="text" name="promotion" id="promotion">
+
+                    <span class="flex-expand"></span>
+
+                    <div style="width: 100%; flex-direction: row-reverse; display:flex;">
+                        <button type="sumbit" class="primary" onclick="ajouterEtudiant()">Ajouter</button>
+                        <button type="button" class="subtle" onclick="réinitialiserFormulaire()">Annuler</button>
+                    </div>
+                </form>
+            </dialog>
+        </main>
+
+        <aside class="events-panel" id="events-panel">
+            <nav>
+                <button class="window-button" onclick="closeEventsPane();"><i class="fa-regular fa-circle-xmark"></i></button>
+            </nav>
+            <h2>Evènements</h2>
+            <div class="contents" id="events-panel-contents"></div>
+        </aside>
+    </body>
+</html>
