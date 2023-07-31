@@ -1,0 +1,16 @@
+{
+  "name": "manip-17",
+  "version": "1.0.0",
+  "description": "Tp de gestion des tableaux ",
+  "main": "manip-17.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "json-server --watch db.json"
+  },
+  "author": "Ben Tuik'art",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "json-server": "^0.17.3"
+  }
+}
