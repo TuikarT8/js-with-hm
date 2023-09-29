@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Webpack App</title>
+    </head>
+    <body>
+       <main id="container">
+            <section id="menu" class="menu" onselect="false">
+                <ul>
+                    <li id="start-game">Nouvelle partie</li>
+                    <li>Scores</li>
+                    <li>Parametres</li>
+                </ul>
+            </section>
+
+            <section id="game" class="game">
+                <div class="controls">
+                    <button type="button" class="button" id="exit-button">Sortir</button>
+
+                    <div class="switch-button-group">
+                        <label>Free fall</label>
+                        <div class="switch-button" id="game-mode-switch">
+                            <div class="slider"></div>
+                        </div>
+                        <label>Standard</label>
+                    </div>
+
+                    <hr/>
+
+                    <h3>Niveau</h3>
+                    <form class="hardness-box">
+                        <div class="hardness-level">
+                            <input type="radio" id="facile" role="facile" name="difficulty-level" checked>
+                            <label for="facile">Facile</label>
+                        </div>
+
+                        <div class="hardness-level">
+                            <input type="radio" id="intermediaire" role="moyen" name="difficulty-level">
+                            <label for="intermediaire">Intermediaire</label>
+                        </div>
+
+                        <div class="hardness-level" >
+                            <input type="radio" id="difficile" role="difficile" name="difficulty-level">
+                            <label for="difficile">Difficile</label>
+                        </div>
+                    </form>
+                </div>
+
+                <section role="game-panel" id="free-fall-game-panel">
+
+                </section>
+
+                <section role="game-panel" id="standard-game-panel">
+
+                </section>
+            </section>
+       </main>
+    </body>
+
+</html>

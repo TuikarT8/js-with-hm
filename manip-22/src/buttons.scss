@@ -1,0 +1,17 @@
+@import './color.scss';
+
+.button {
+    border: solid 1px #000;
+    border-radius: 8px;
+    height: 32px;
+    padding: 0 20px 0 20px;
+
+    font-family: Jackpot;
+
+    background-color: #fff;
+
+    &:hover {
+        background-color: $text-hover-color;
+        color: #fff;
+    }
+}
