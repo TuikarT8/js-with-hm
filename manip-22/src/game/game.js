@@ -15,4 +15,8 @@ export class Game {
     setup() {
         throw new Error('Vous ne pouvez pas instancier cette classe. Servez-vous de ses filles');
     }
+
+    start() {
+
+    }
 }

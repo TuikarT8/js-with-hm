@@ -1,12 +1,13 @@
 import './letter.scss';
 import $ from 'jquery';
-
+import { Events } from '../../events';
 
 export class Letter {
     /**
      * @var {HTMLDivElement}
      */
     #element = null;
+    running = false;
 
     /**
      *
@@ -20,17 +21,40 @@ export class Letter {
 
         parent.appendChild(this.#element);
 
-        $(this.#element).animate({
-            bottom: 0,
-        }, 10000, 'linear');
+        $(this.#element).animate(
+            { bottom: 0 },
+            {
+                duration: 10000,
+                easing: 'linear',
+                start: () => {
+                    this.running = true;
+                    const callback = () => {
+                        this.onGameOver();
+                        document.removeEventListener(Events.GameOver, callback);
+                    };
+                    document.addEventListener(Events.GameOver, callback);
+                },
+                done: () => {
+                    if (this.running) {
+                        document.dispatchEvent(new Event(Events.GameOver));
+                    }
+                }
+            }
+        );
+    }
+
+    clean() {
+        this.#element?.remove();
+        this.#element = null;
     }
 
     kill() {
-        this.#element.ClassList.add('hit');
+        this.running = false;
+        $(this.#element).stop();
+        this.clean();
     }
 
-    tearDown() {
-        this.#element.remove();
-        this.#element = null;
+    onGameOver() {
+        this.kill();
     }
 }

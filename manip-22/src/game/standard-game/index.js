@@ -11,6 +11,10 @@ export class StandardGame extends Game {
     setup() {
         this.#element = document.querySelector('section#standard-game-panel');
         this.#element.innerHtml = '';
-        this.#element.classList.add('active')
+        this.#element.classList.add('active');
+    }
+
+    start() {
+
     }
 }

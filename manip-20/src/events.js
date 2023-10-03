@@ -1,3 +1,5 @@
+import { Api } from "./api";
+
 const TypesEvenements = {
     AjoutSingulerEtudiant: 'AJOUT_SINGULER_ETUDIANT',
     SuppressionSinguliereEtudiant: 'SUPPRESSION_SINGULIERE_ETUDIANT',
@@ -10,7 +12,7 @@ headers.append('Content-Type', 'application/json');
  * Crée un évènement du type {nom: string, date: Date, type: 'AJOUT_SINGULIER_ETUDIANT'}
  * @param {{nom: string, age?: number, promotion?: string }} etudiant
  */
-function onCreateStudent(etudiant) {
+export function onCreateStudent(etudiant) {
     if (!etudiant) return;
 
     // 1. Contacter le serveur pour créér l'évènement
@@ -31,7 +33,7 @@ function onCreateStudent(etudiant) {
  * Crée un évènement du type {nom: string, date: Date, type: 'SUPPRESSION_SINGULIERE_ETUDIANT'}
  * @param {{nom: string, age?: number, promotion?: string }} etudiant
  */
-function onDeleteStudent(etudiant) {
+export function onDeleteStudent(etudiant) {
     // 1. Contacter le serveur pour créer l'évènement
     fetch('http://localhost:3000/events', {
         method: 'POST',
@@ -50,7 +52,7 @@ function onDeleteStudent(etudiant) {
  * Crée un évènement du type {nom: string, date: Date, type: 'SUPPRESSION_MULTIPE_ETUDIANTS'}
  * @param {Array<{nom: string, age?: number, promotion?: string }>} etudiants
  */
-function onDeleteManyStudents(etudiants) {
+export function onDeleteManyStudents(etudiants) {
     // 1. Contacter le serveur pour crééer l'évènement
     fetch('http://localhost:3000/events', {
         method: 'POST',
@@ -65,11 +67,11 @@ function onDeleteManyStudents(etudiants) {
     });
 }
 
-function openEventsPane() {
+export function openEventsPane() {
     document.querySelector('aside#events-panel').classList.add('open');
 }
 
-function closeEventsPane() {
+export function closeEventsPane() {
     document.querySelector('aside#events-panel').classList.remove('open');
 }
 
@@ -99,7 +101,7 @@ function afficherEvenements(evenements) {
  * Affiche les évènements dans le panneaux d'évènements
  * @param {{nom?: string, noms: string[], date: string, type: 'AJOUT_SINGULER_ETUDIANT' | 'AJOUT_MULTIPLE_ETUDIANTS' | 'SUPPRESSION_MULTIPE_ETUDIANTS'}} evenements
  */
-function makeEventDescription(evenement) {
+export function makeEventDescription(evenement) {
     if (evenement.type === TypesEvenements.AjoutSingulerEtudiant) {
         return `A ajouté l'étudiant ${evenement.nom}`
     } else if (evenement.type === TypesEvenements.SuppressionSinguliereEtudiant) {
@@ -109,6 +111,16 @@ function makeEventDescription(evenement) {
     }
 }
 
-function supprimerLignes() {
+export function supprimerLignes() {
     document.querySelectorAll('#events-panel-contents > div').forEach(e => e.remove());
+}
+
+export function chargerEvenements() {
+    Api.chargerEvenements()
+        .then((value) => {
+            afficherEvenements(value);
+        })
+        .catch((error) => {
+            console.error(error);
+        });
 }

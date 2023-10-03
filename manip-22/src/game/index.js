@@ -25,6 +25,18 @@ export function game() {
             document.querySelector("#menu").classList.remove('invisible');
         });
 
+    document.querySelector('button#start-button')
+        .addEventListener('click', () => {
+            gameEngine.start();
+        });
+
+    document.querySelector('button#try-button')
+        .addEventListener('click', () => {
+            gameEngine.start();
+            document.querySelector("#game-over-popup").classList.remove('visible');
+            document.querySelector(".dialog-mask").classList.remove('visible');
+        });
+
     document.querySelector('div#game-mode-switch')
         .addEventListener('switched', (event) => {
             switchGameMode(event.switched ? GameModes.Standard : GameModes.FreeFall);

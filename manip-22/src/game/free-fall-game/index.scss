@@ -1,0 +1,51 @@
+.game-over-popup {
+    width: fit-content;
+    height: fit-content;
+    padding: 32px;
+    font-size: 72px;
+    font-weight: 700;
+    font-family: 'Cheeky Rabbit';
+    text-align: center;
+    color:#000000;
+    border-radius: 8px;
+    border: solid 3px;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    cursor: pointer;
+
+    z-index: 10002;
+    background-color: #ffffff;
+
+    display: none;
+    flex-direction: column;
+
+    &.visible {
+        display: flex;
+    }
+
+    button {
+        left: 0; right: 0;
+        margin: auto;
+        cursor: pointer;
+    }
+}
+
+.stats {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 8px;
+    width: fit-content;
+    height: fit-content;
+    background-color: #fff;
+    border-radius: 4px;
+    color: #000000;
+    font-size: 14px;
+
+    z-index: 10000;
+}

@@ -1,0 +1,127 @@
+<html>
+    <head>
+        <title>Manip - 20</title>
+        <script src="https://kit.fontawesome.com/8878e5c56f.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="/assets/font-awesome.min.css">
+        <link rel="stylesheet" href="/manip-20/manip-20.css">
+    <script defer src="main.js"></script></head>
+    <body>
+        <nav>
+            <h2>Manip - 20</h2>
+            <span class="flex-expand"></span>
+            <a href="#historique" class="nav-link" id="history-nav-link">Historique</a>
+            <a href="#delibe" class="nav-link" id="delibe-nav-link">Délibé</a>
+        </nav>
+
+        <main>
+            <section class="main-content" id="student-view">
+                <div class="toolbar">
+                    <button class="icon-button" id="student-view-back-btn"><i class="fa-solid fa-circle-left"></i></button>
+                </div>
+
+                <h1>Nom de l'étudiant (age ans)</h1>
+                <h4>Promotion</h4>
+            </section>
+
+            <section class="main-content visible" id="table-section">
+                <h2>Liste des étudiants</h2>
+                <div class="toolbar">
+                    <input type="text" name="filtre" id="filter-students" type="recherche" placeholder="Filtrer">
+                    <span class="flex-expand"></span>
+                    <button class="icon-button" id="global-delete-button" disabled style="margin-right: 8px"><i class="fa-solid fa-trash"></i></button>
+                    <button class="icon-button" id="global-add-student-button" style="margin-right: 8px;"><i class="fa-solid fa-plus"></i></button>
+                    <button class="icon-button" id="global-init-table"><i class="fa-solid fa-arrows-rotate"></i></button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" id="global-select-students-checkbox"></th>
+                            <th id="th-nom">Nom&nbsp;<i class="fa-solid fa-sort"></i></i></i></td>
+                            <th id ="th-age">Age&nbsp;<i class="fa-solid fa-sort"></i></i></i></td>
+                            <th id ="th-promotion">Promotion&nbsp;<i class="fa-solid fa-sort"></i></i></i></td>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Insérer les étudiants ici grâce à JavaScript :D -->
+                    </tbody>
+                </table>
+                <div class="table-info" id="table-info">0 sur 0 éléments</div>
+                <dialog>
+                    <form id="formulaire" onsubmit="return false;">
+                        <h2>Ajout d'étudiant</h2>
+                        <label for="nom">Nom</label>
+                        <input type="text" name="nom" id="nom">
+                        <label for="age">Age</label>
+                        <input type="number" name="age" id="age">
+                        <label for="promotion">Promotion</label>
+                        <input type="text" name="promotion" id="promotion">
+
+                        <span class="flex-expand"></span>
+
+                        <div style="width: 100%; flex-direction: row-reverse; display:flex;">
+                            <button type="sumbit" id="primary-button">Ajouter</button>
+                            <button type="button" id="subtle-button" class="subtle">Annuler</button>
+                        </div>
+                    </form>
+                </dialog>
+            </section>
+
+            <section class="main-content" id="delibe-tab-panel">
+                <div class="toolbar" style="margin-bottom: 8px ">
+                    <button class="icon-button" id="delibe-view-back-btn" style="margin-right: 4px;"><i class="fa-solid fa-circle-left"></i></button>
+                    <button class="icon-button" id="global-add-delibe-button" style="margin-right: 8px;"><i class="fa-solid fa-plus"></i></button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th id="th-nom">Nom&nbsp;<i class="fa-solid fa-sort"></i></td>
+                            <th id ="th-cours">Promotion&nbsp;<i class="fa-solid fa-sort"></i></i></i></td>
+                            <th id ="th-cours">Cours1&nbsp;<i class="fa-solid fa-sort"></i></td>
+                            <th id ="th-cours">Cours2&nbsp;<i class="fa-solid fa-sort"></i></td>
+                            <th id ="th-cours">Cours3&nbsp;<i class="fa-solid fa-sort"></i></td>
+                            <th id ="th-cours">Cours4&nbsp;<i class="fa-solid fa-sort"></i></td>
+                            <th id ="th-cours">Cours5&nbsp;<i class="fa-solid fa-sort"></i></td>
+                            <th id ="th-decision">Decision&nbsp;<i class="fa-solid fa-sort"></i> <span></span></td>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-cotes">
+                        <!-- Insérer les étudiants ici grâce à JavaScript :D -->
+                    </tbody>
+                </table>
+                <div class="table-info">Moyenne Generale 0/100</div>
+                <dialog id="dialog-delibe">
+                    <form id="formulaire-delibe" onsubmit="return false;">
+                        <h2>Ajouts des cotations</h2>
+                        <select name="etudiant" id="etudiant"></select>
+                        <label for="cours1">Cours 1</label>
+                        <input type="number" name="cours1" id="cours1">
+                        <label for="cours">Cours 2</label>
+                        <input type="number" name="cours2" id="cours2">
+                        <label for="cours">Cours 3</label>
+                        <input type="number" name="cours3" id="cours3">
+                        <label for="cours">Cours 4</label>
+                        <input type="number" name="cours4" id="cours4">
+                        <label for="cours">Cours 5</label>
+                        <input type="number" name="cours5" id="cours5">
+
+                        <span class="flex-expand"></span>
+
+                        <div style="width: 100%; flex-direction: row-reverse; display:flex;">
+                            <button type="sumbit" id="primary-button-delibe" >Ajouter</button>
+                            <button type="button" id="subtle-button-delibe" class="subtle">Annuler</button>
+                        </div>
+                    </form>
+                </dialog>
+            </section>
+        </main>
+
+        <aside class="events-panel" id="events-panel">
+            <nav>
+                <button class="window-button" id="window-button"><i class="fa-regular fa-circle-xmark"></i></button>
+            </nav>
+            <h2>Evènements</h2>
+            <div class="contents" id="events-panel-contents"></div>
+        </aside>
+    </body>
+</html>

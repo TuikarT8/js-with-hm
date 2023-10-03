@@ -1,6 +1,7 @@
-import { game } from "..";
+import { Events } from '../../events';
 import { Game, GameDifficultyLevels } from "../game";
 import { Letter } from "./letter";
+import './index.scss';
 
 let lettersGenerationInterval = 1000;
 const characteres = ["A","B","C","D","E","F","G","H","I","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
@@ -9,7 +10,28 @@ const caracteresSpeciaux = ['&', 'é', "'", '"', '(', '-', 'è', 'ç', 'à', ')'
 
 export class FreeFallGame extends Game {
     #element = null;
-    #letters = [];
+    #letters = {};
+    #interval = null;
+    #running = false;
+    #missedCount = 0;
+    #successCount = 0;
+
+
+    onKeyUp = (event) => {
+        const key = event.key.toUpperCase();
+        const letter = this.#letters[key]?.[0];
+        if (!letter) {
+            this.#onMissedKey();
+            this.#recalculateAndRenderStats();
+            return;
+        }
+
+        this.#onSuccessfulKey();
+
+        letter.kill();
+        this.#letters[key]?.splice(0, 1);
+        this.#recalculateAndRenderStats();
+    }
 
     constructor() {
         super();
@@ -21,12 +43,45 @@ export class FreeFallGame extends Game {
         this.#element.innerHtml = '';
         this.#element.classList.add('active');
 
-        setInterval(() => {
-            this.run();
+        document.addEventListener(Events.GameOver, () => {
+            /**
+             * On passe running à false car on veut rendre possible le démarrage d'une nouvelle
+             * partie.
+             */
+            this.#running = false;
+
+            clearInterval(this.#interval);
+            this.#displayGameOverPopup();
+            this.#clean();
+        });
+    }
+
+    start() {
+        /**
+         * Ne pas demarrer une nouvelle partie s'il y en a déjà une en cours d'exécution.
+         */
+        if (this.#running) {
+            return;
+        }
+
+        this.#element.querySelector('#stats').innerHTML = 'Précision 0%';
+        this.#hookKeyboardEvents();
+
+        this.#running = true;
+        this.#interval = setInterval(() => {
+            this.runIteration();
         }, lettersGenerationInterval);
     }
 
-    run() {
+    #hookKeyboardEvents() {
+        document.addEventListener('keyup', this.onKeyUp);
+    }
+
+    #unhookToKeyboardEvents() {
+        document.removeEventListener('keyup', this.onKeyUp);
+    }
+
+    runIteration() {
         if (Game.difficultyLevel === GameDifficultyLevels.Easy) {
             this.#runInEasyMode();
         } else if (Game.difficultyLevel === GameDifficultyLevels.Medium) {
@@ -34,6 +89,8 @@ export class FreeFallGame extends Game {
         } else {
             this.#runInHardMode();
         }
+
+        this.#recalculateAndRenderStats();
     }
 
     #runInEasyMode() {
@@ -42,7 +99,13 @@ export class FreeFallGame extends Game {
         const maxLettersForScreenWidth = Math.floor(window.innerWidth / (64 + 16));
         const letterScreenPosition = Math.floor(Math.random() * maxLettersForScreenWidth);
 
-        this.#letters.push(new Letter(this.#element, letter, letterScreenPosition));
+        if (!this.#letters[letter]) {
+            this.#letters[letter] = [];
+        }
+
+        this.#letters[letter]
+            .push(new Letter(this.#element, letter, letterScreenPosition));
+
     }
 
     #getRandomCharacter(characteres) {
@@ -57,4 +120,31 @@ export class FreeFallGame extends Game {
 
     }
 
+    #clean() {
+        this.#unhookToKeyboardEvents();
+
+        for (const key in this.#letters) {
+            this.#letters[key].forEach(l => l.kill());
+            this.#letters[key] = [];
+        }
+    }
+
+    #displayGameOverPopup() {
+        document.querySelector('#game-over-popup').classList.add('visible');
+        document.querySelector('.dialog-mask').classList.add('visible');
+    }
+
+    #onMissedKey() {
+        this.#missedCount++;
+    }
+
+    #recalculateAndRenderStats() {
+        const stats = document.getElementById('stats');
+        const precision = Math.floor((this.#successCount * 100) / (this.#missedCount + this.#successCount));
+        stats.innerHTML = `Précison ${precision || 100}%`;
+    }
+
+    #onSuccessfulKey() {
+        this.#successCount++;
+    }
 }
