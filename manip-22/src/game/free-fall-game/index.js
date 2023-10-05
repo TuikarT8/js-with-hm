@@ -3,7 +3,6 @@ import { Game, GameDifficultyLevels } from "../game";
 import { Letter } from "./letter";
 import './index.scss';
 
-let lettersGenerationInterval = 1000;
 const characteres = ["A","B","C","D","E","F","G","H","I","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
 const chiffres = ['0','1','2','3','4','5','6','7','8','9']
 const caracteresSpeciaux = ['&', 'é', "'", '"', '(', '-', 'è', 'ç', 'à', ')', '=', '*', '$', 'ù', '!', ':', ';', 'ù', ','];
@@ -15,7 +14,8 @@ export class FreeFallGame extends Game {
     #running = false;
     #missedCount = 0;
     #successCount = 0;
-
+    #fallSpeed = 30000;
+    #generationSpeed = 1000;
 
     onKeyUp = (event) => {
         const key = event.key.toUpperCase();
@@ -70,7 +70,7 @@ export class FreeFallGame extends Game {
         this.#running = true;
         this.#interval = setInterval(() => {
             this.runIteration();
-        }, lettersGenerationInterval);
+        }, this.#generationSpeed);
     }
 
     #hookKeyboardEvents() {
@@ -104,7 +104,7 @@ export class FreeFallGame extends Game {
         }
 
         this.#letters[letter]
-            .push(new Letter(this.#element, letter, letterScreenPosition));
+            .push(new Letter(this.#element, letter, letterScreenPosition, this.#fallSpeed));
 
     }
 
@@ -146,5 +146,10 @@ export class FreeFallGame extends Game {
 
     #onSuccessfulKey() {
         this.#successCount++;
+
+        if (this.#successCount % 200 === 0) {
+            this.#generationSpeed -= 10;
+            this.#fallSpeed -= 1000;
+        }
     }
 }

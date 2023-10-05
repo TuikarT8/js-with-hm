@@ -2,7 +2,18 @@
 <html>
     <head>
         <meta charset="utf-8" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <title>Webpack App</title>
+
+        <style>
+            .material-symbols-outlined {
+              font-variation-settings:
+              'FILL' 0,
+              'wght' 400,
+              'GRAD' 0,
+              'opsz' 24
+            }
+        </style>
     </head>
     <body>
         <div class="dialog-mask"></div>
@@ -17,37 +28,43 @@
             </section>
 
             <section id="game" class="game">
-                <div class="controls">
-                    <button type="button" class="button" id="start-button">Start</button>
-                    <button type="button" class="button" id="exit-button">Sortir</button>
+                <div class="controls" id="controls">
+                    <button type="button" class="button icon" id="hide-button">
+                        <span class="material-symbols-outlined">chevron_right</span>
+                    </button>
 
-                    <div class="switch-button-group">
-                        <label>Free fall</label>
-                        <div class="switch-button" id="game-mode-switch">
-                            <div class="slider"></div>
+                    <div class="inner-pane">
+                        <button type="button" class="button" id="start-button">Demarer</button>
+                        <button type="button" class="button" id="exit-button">Sortir</button>
+
+                        <div class="switch-button-group">
+                            <label>Free fall</label>
+                            <div class="switch-button" id="game-mode-switch">
+                                <div class="slider"></div>
+                            </div>
+                            <label>Standard</label>
                         </div>
-                        <label>Standard</label>
+
+                        <hr/>
+
+                        <h3>Niveau</h3>
+                        <form class="hardness-box">
+                            <div class="hardness-level">
+                                <input type="radio" id="facile" role="facile" name="difficulty-level" checked>
+                                <label for="facile">Facile</label>
+                            </div>
+
+                            <div class="hardness-level">
+                                <input type="radio" id="intermediaire" role="moyen" name="difficulty-level">
+                                <label for="intermediaire">Intermediaire</label>
+                            </div>
+
+                            <div class="hardness-level" >
+                                <input type="radio" id="difficile" role="difficile" name="difficulty-level">
+                                <label for="difficile">Difficile</label>
+                            </div>
+                        </form>
                     </div>
-
-                    <hr/>
-
-                    <h3>Niveau</h3>
-                    <form class="hardness-box">
-                        <div class="hardness-level">
-                            <input type="radio" id="facile" role="facile" name="difficulty-level" checked>
-                            <label for="facile">Facile</label>
-                        </div>
-
-                        <div class="hardness-level">
-                            <input type="radio" id="intermediaire" role="moyen" name="difficulty-level">
-                            <label for="intermediaire">Intermediaire</label>
-                        </div>
-
-                        <div class="hardness-level" >
-                            <input type="radio" id="difficile" role="difficile" name="difficulty-level">
-                            <label for="difficile">Difficile</label>
-                        </div>
-                    </form>
                 </div>
 
                 <section role="game-panel" id="free-fall-game-panel">

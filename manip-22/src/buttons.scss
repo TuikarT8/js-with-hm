@@ -14,4 +14,22 @@
         background-color: $text-hover-color;
         color: #fff;
     }
+
+    &.icon {
+        height: 36px;
+        width: 36px;
+        max-height:36px;
+        max-width: 36px;
+        min-height: 36px;
+        min-width: 36px;
+        display: flex;
+        border-radius: 50%;
+        overflow: hidden;
+        padding: 0;
+
+        span {
+            line-height: 36px;
+            width: 36px;
+        }
+    }
 }

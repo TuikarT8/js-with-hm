@@ -12,8 +12,11 @@ export class Letter {
     /**
      *
      * @param {HTMLDivElement} parent
+     * @param {sring} letter
+     * @param {number} position
+     * @param {number} fallSpeed
      */
-    constructor(parent, letter, position) {
+    constructor(parent, letter, position, fallSpeed) {
         this.#element = document.createElement('div');
         this.#element.classList.add('letter');
         this.#element.innerText = letter;
@@ -24,7 +27,7 @@ export class Letter {
         $(this.#element).animate(
             { bottom: 0 },
             {
-                duration: 10000,
+                duration: fallSpeed,
                 easing: 'linear',
                 start: () => {
                     this.running = true;

@@ -1,9 +1,11 @@
 import { FreeFallGame } from './free-fall-game';
 import { Game, GameDifficultyLevels, GameModes } from './game';
 import { StandardGame } from './standard-game';
+import $ from 'jquery';
 import './index.scss';
 
 let gameEngine = new FreeFallGame();
+let controlsPaneOpened = true;
 
 function switchGameMode(mode) {
     document.querySelectorAll('section[role="game-panel"]')
@@ -18,6 +20,20 @@ function switchGameMode(mode) {
     }
 }
 
+function toggleControls() {
+    const controls = document.querySelectorAll('div#controls');
+
+    if (controlsPaneOpened) {
+        $(controls).animate({right: -230, height: 42,});
+        $('button#hide-button > span').animate({rotate: '180deg',});
+    } else {
+        $(controls).animate({right: 16,height: 289,});
+        $('button#hide-button > span').animate({rotate: '0deg',});
+    }
+
+    controlsPaneOpened = !controlsPaneOpened;
+}
+
 export function game() {
     document.querySelector('button#exit-button')
         .addEventListener('click', () => {
@@ -27,6 +43,7 @@ export function game() {
 
     document.querySelector('button#start-button')
         .addEventListener('click', () => {
+            toggleControls();
             gameEngine.start();
         });
 
@@ -41,6 +58,9 @@ export function game() {
         .addEventListener('switched', (event) => {
             switchGameMode(event.switched ? GameModes.Standard : GameModes.FreeFall);
         });
+
+    document.querySelector('button#hide-button')
+        .addEventListener( 'click', toggleControls);
 
     document.querySelectorAll('.hardness-box > input[type="radio"].hardness-level')
         .forEach((element) => {
